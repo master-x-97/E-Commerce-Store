@@ -1,8 +1,6 @@
 import './App.css';
 import  { Toaster } from 'react-hot-toast';
-
 import { Offline, Online } from "react-detect-offline";
-
 import Layout from './Components/Layout/Layout';
 import Home from './Components/Home/Home';
 import Cart from './Components/Cart/Cart';
@@ -19,11 +17,10 @@ import ProtectedRoute from './Components/ProtectedRoute/ProtectedRoute';
 import ProductDetails from './Components/ProductDetails/ProductDetails';
 import CategoriesDetails from './Components/CategoriesDetails/CategoriesDetails';
 import Brands from './Components/Brands/Brands';
-import { CartContextProvider } from './Context/CartContext';
+import   CartContextProvider  from './Context/CartContext';
 import Checkout from './Components/checkout/Checkout';
 import Profile from './Components/Profile/Profile';
 import { Provider } from 'react-redux';
-import Store from './Redux/store';
 import store from './Redux/store';
 
 
@@ -42,7 +39,7 @@ function App() {
     let encodedToken = localStorage.getItem('userToken')
     let decodeToken = jwtDecode(encodedToken)
     setUserData(decodeToken)
-  }
+  } 
 
  
 
@@ -65,7 +62,7 @@ function App() {
     ]}
   ]) 
   return <Provider store={store}>
-   <CartContextProvider>
+<CartContextProvider>
       <Online>Only shown when you're online </Online>
     <Offline> <div className='network bg-danger text-white'>you`re internet is not connect (surprise!)</div></Offline>
     <Toaster/>

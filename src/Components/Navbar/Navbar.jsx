@@ -2,13 +2,13 @@ import React, { useContext } from "react";
 // import styles from './Navbar.module.css';
 import logo from "../../assets/images/freshcart-logo.svg";
 import { Link } from "react-router-dom";
-import { cartContext } from "../../Context/CartContext";
+import { CartContext } from "../../Context/CartContext";
 import { useDispatch, useSelector } from "react-redux";
 import { decrease } from "../../Redux/Productslice";
 
 
 export default function Navbar({ userData, logOut }) {
-  let { numOfCartItems } = useContext(cartContext);
+  let { numOfCartItems } = useContext(CartContext);
   let { counter } = useSelector((state) => state.productred);
 
   // console.log(userData);

@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 // import styles from './Cart.module.css';
 // import { toast, Toaster } from 'react-hot-toast';
-import { cartContext } from '../../Context/CartContext';
+import { CartContext } from '../../Context/CartContext';
 import { toast } from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import {Helmet} from "react-helmet";
@@ -9,7 +9,7 @@ import {Helmet} from "react-helmet";
 
 export default function Cart() {
 
-  let  {getLoggedUserCart , removeItem ,updateProductcount ,clearItems} = useContext(cartContext); 
+  let  {getLoggedUserCart , removeItem ,updateProductcount ,clearItems} = useContext(CartContext); 
 
   const [cartDitails, setcartDitails] = useState(null);
 

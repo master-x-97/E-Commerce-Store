@@ -1,34 +1,34 @@
-import { useFormik } from 'formik';
-import React, {  useContext, useState } from 'react'
+import React, {  useState } from 'react'
+import { Formik, useFormik } from 'formik';
+import styles from './Login.module.css';
 import * as Yup from 'yup'
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import { UserContext } from '../../Context/UserContext';
-import { cartContext } from '../../Context/CartContext';
+import { Link, useNavigate } from 'react-router-dom';
+import { Audio } from 'react-loader-spinner';
 
 
 
-export default function Login({saveUserData}) {
-  let {setuserData} = useContext(cartContext)
-  
+export default function Login() {
+   
   let navigate =  useNavigate();
+  const [error, seterror] = useState(null)
   const [isloding, setisloding] = useState(false)
   
-  async function handleLogin(values){
+  async function loginSubmit(values){
     
     setisloding(true)
     
-    let {data} = await axios.post('https://ecommerce.routemisr.com/api/v1/auth/signin', values);
-    console.log(values);
-    console.log(data);
+    let {data} = await axios.post('https://ecommerce.routemisr.com/api/v1/auth/signin', values)
+    .catch((err)=>{
+      setisloding(false);
+      seterror(err.response.data.message)
+    })
+
   
     if(data.message === 'success'){
-      localStorage.setItem("userToken" , data.token)
-      saveUserData()
       setisloding(false)
       navigate('/')
-      setuserData(data.user)
-      console.log(data);
+
     }
   }
   
@@ -44,7 +44,7 @@ let formik = useFormik({
       password: "",
     },
     validationSchema:validation,
-    onSubmit: handleLogin
+    onSubmit: loginSubmit
   });
   return <>
     <div className="w-75 mx-auto py-5">
@@ -61,7 +61,19 @@ let formik = useFormik({
       <input onBlur={formik.handleBlur} className='form-control mb-2' onChange={formik.handleChange} value={formik.values.password} type="password" name='password' id='password' />
       {formik.errors.password && formik.touched.password ? <div className='alert alert-danger'>{formik.errors.password}</div>:null}
 
-      {isloding?<button  type='button' className='btn bg-main text-white'><i className='fa fa-spinner fa-spin'></i></button>:<button disabled={!(formik.isValid && formik.dirty)} type='submit' className='btn bg-main text-white'>Login</button> }
+      {isloding?<button  type='button' className='btn bg-main text-white' >
+        <Audio
+        height="20"
+        width="80"
+        radius="g"
+        color='white'
+        ariaLabel='three-dots-loading'
+        wrapperStyle
+        wrapperClass/>
+      </button>:<>
+      <div className='d-flex align-items-center'></div>
+      <button disabled={!(formik.isValid && formik.dirty)} type='submit' className='btn bg-main text-white mx-2'>Login</button> <Link className='btn' to={'/register'}>Register now</Link>
+      </> }
    </form>
     </div>
     </>

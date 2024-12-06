@@ -32,8 +32,8 @@ export default function Categories() {
         </div>
       ) : (
         <div className="row">
-          {Categories.map((category) => (
-            <div  className="col-md-3" >
+          {Categories.map((category , indx) => (
+            <div key={indx  } className="col-md-3" >
               <div className="categorys w-100 h-100 cursor-pointer">
                 <Link to={`/CategoriesDetails/${category._id}`}>
                 <img

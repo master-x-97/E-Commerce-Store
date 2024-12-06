@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react'
 import { toast } from 'react-hot-toast';
 import { Link } from 'react-router-dom';
-import { cartContext } from '../../Context/CartContext';
+import { CartContext, cartContext } from '../../Context/CartContext';
 import {Helmet} from "react-helmet";
 import { useQuery } from 'react-query';
 import { CircleLoader } from 'react-spinners';
@@ -12,7 +12,11 @@ import { CircleLoader } from 'react-spinners';
 
 export default function FeatureProducts() {
 
+let {addToCart} = useContext(CartContext) 
 
+  async function addProductToCart(id){
+   let response = await addToCart(id)
+}
 
   function getFeatureProducts(){
     return axios.get(`https://ecommerce.routemisr.com/api/v1/products`)
@@ -27,45 +31,13 @@ export default function FeatureProducts() {
 
 
 
-  // const [isloading, setisloading] = useState(false)
-  // let [products , setProducts] = useState([])
-  // let {addToCart,setnumOfCartItems} = useContext(cartContext )
 
-
-
-  // async function  addProduct (productId){
-
-
-  //   let response = await addToCart(productId);
-  //   console.log(response);
-  //   if(response?.data?.status === "success"){
-  //     setnumOfCartItems(response.data.numOfCartItems)
-  //     toast.success(response.data.message ,{duration:2000})
-  //   }
-  //   else{
-  //     toast.error('error : you  must login to add to cart' ,{duration:4000})
-      
-  //   }
-  // }
-
-
-
-  // async function getProducts(){
-  //   setisloading(true)
-  //   let {data} = await axios.get(`https://ecommerce.routemisr.com/api/v1/products`)
-  //   setProducts(data.data)
-  //   setisloading(false)
-  // }
-
-  // useEffect(()=>{
-  //   getProducts()
-  
-  // },[])
   return <>
+
       <Helmet>
                 
                 <title>Home page</title>
-                                   
+                
             </Helmet>
     {isLoading?  <div className='w-100 py-2 d-flex justify-content-center'>
   <CircleLoader
@@ -99,7 +71,7 @@ export default function FeatureProducts() {
         </Link>
 
 
-        <button  className='btn bg-main text-white w-100'> + Add</button>
+        <button onClick={()=>addProductToCart(product.id)} className='btn bg-main text-white w-100'> + Add</button>
       </div>
       
       </div>)}

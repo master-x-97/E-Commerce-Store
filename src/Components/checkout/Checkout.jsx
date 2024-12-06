@@ -1,11 +1,11 @@
 import { useFormik } from 'formik';
 import React, { useContext } from 'react'
-import { cartContext } from '../../Context/CartContext';
+import { CartContext } from '../../Context/CartContext';
 import styles from './Checkout.module.css';
 
 
 export default function Checkout() {
-  let {onLinePayment,cartId}=useContext(cartContext)
+  let {onLinePayment,cartId}=useContext(CartContext)
   async function handleSubmit(values){
     let response = await onLinePayment(cartId , values)
     if(response?.date?.status === 'success')
