@@ -10,7 +10,7 @@ import About from './Components/About/About';
 import Login from './Components/Login/Login';
 import Register from './Components/Register/Register';
 import NotFound from './Components/NotFound/NotFound';
-import { createBrowserRouter, RouterProvider} from 'react-router-dom';
+import { createBrowserRouter, createHashRouter, RouterProvider} from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import jwtDecode from 'jwt-decode';
 import ProtectedRoute from './Components/ProtectedRoute/ProtectedRoute';
@@ -43,7 +43,7 @@ function App() {
 
  
 
-  let routers = createBrowserRouter([
+  let routers = createHashRouter([
     {path:'',element:<Layout userData={userData} setUserData={setUserData}/>,children:[
       {index:true,element:<Home/> },
       {path:'products', element:<Products/> },
