@@ -1,15 +1,18 @@
-import React, {  useState } from 'react'
+import React, {  useContext, useState } from 'react'
 import { Formik, useFormik } from 'formik';
 import styles from './Login.module.css';
 import * as Yup from 'yup'
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { Audio } from 'react-loader-spinner';
+import { UserContext } from '../../Context/UserContext';
+
 
 
 
 export default function Login() {
-   
+  
+  let {setUserToken} = useContext(UserContext)
   let navigate =  useNavigate();
   const [error, seterror] = useState(null)
   const [isloding, setisloding] = useState(false)
@@ -26,7 +29,10 @@ export default function Login() {
 
   
     if(data.message === 'success'){
+      
       setisloding(false)
+      localStorage.setItem('userToken' , data.token)
+      setUserToken(data.token)
       navigate('/')
 
     }
