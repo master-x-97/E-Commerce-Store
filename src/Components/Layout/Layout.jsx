@@ -2,22 +2,16 @@ import React from 'react'
 import Navbar from '../Navbar/Navbar';
 import Footer from '../Footer/Footer';
 // import styles from './Layout.module.css';
-import { Outlet, useNavigate } from 'react-router-dom';
-import { Offline, Online } from "react-detect-offline";
+import { Outlet } from 'react-router-dom';
+import { Offline } from "react-detect-offline";
 
-export default function Layout({userData , setUserData}) {
-  let navigate = useNavigate()
+export default function Layout({userData , setUserData ,UserToken ,setUserToken }) {
 
-  function logOut(){
-    localStorage.removeItem("userToken")
-    setUserData(null)
-    navigate('/login')
 
-  }
   return <>
   <div className=''>
 
-    <Navbar userData={userData} logOut={logOut}/>
+    <Navbar UserToken={UserToken}   />
     <div className="container">
     <Outlet></Outlet>
 

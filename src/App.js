@@ -11,7 +11,7 @@ import Login from './Components/Login/Login';
 import Register from './Components/Register/Register';
 import NotFound from './Components/NotFound/NotFound';
 import { createBrowserRouter, createHashRouter, RouterProvider} from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import jwtDecode from 'jwt-decode';
 import ProtectedRoute from './Components/ProtectedRoute/ProtectedRoute';
 import ProductDetails from './Components/ProductDetails/ProductDetails';
@@ -22,10 +22,20 @@ import Checkout from './Components/checkout/Checkout';
 import Profile from './Components/Profile/Profile';
 import { Provider } from 'react-redux';
 import store from './Redux/store';
+import UserContextProvider, { UserContext } from './Context/UserContext';
+
 
 
 
 function App() { 
+
+  let {setUserToken} = useContext(UserContext)
+
+  useEffect(()=>{
+    if(localStorage.getItem('userToken')!== null){
+      setUserToken(localStorage.getItem('userToken'))
+    }
+  },[])
 
   const [userData , setUserData] = useState(null)
 
@@ -44,7 +54,7 @@ function App() {
  
 
   let routers = createHashRouter([
-    {path:'',element:<Layout userData={userData} setUserData={setUserData}/>,children:[
+    {path:'/',element:<Layout userData={userData} setUserData={setUserData}/>,children:[
       {index:true,element:<Home/> },
       {path:'products', element:<Products/> },
       {path:'brands', element:<Brands/> },
@@ -61,15 +71,23 @@ function App() {
       {path:'*', element:<NotFound/>},
     ]}
   ]) 
-  return <Provider store={store}>
-<CartContextProvider>
-      <Online>Only shown when you're online </Online>
-    <Offline> <div className='network bg-danger text-white'>you`re internet is not connect (surprise!)</div></Offline>
-    <Toaster/>
-    <RouterProvider router={routers}></RouterProvider>
-  </CartContextProvider> 
+  return (
+    <Provider store={store}>
 
-  </Provider>
+      
+        <CartContextProvider>
+          {/* <Online>Only shown when you're online</Online> */}
+          <Offline>
+            <div className='network bg-danger text-white'>
+              you`re internet is not connect (surprise!)
+            </div>
+          </Offline>
+          <Toaster />
+          <RouterProvider router={routers}></RouterProvider>
+        </CartContextProvider>
+
+    </Provider>
+  );
 }
 
 export default App;
