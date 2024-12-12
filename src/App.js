@@ -39,11 +39,13 @@ function App() {
 
   const [userData , setUserData] = useState(null)
 
-  useEffect(()=>{
-    if(localStorage.getItem("userToken")){
-      saveUserData()
+  useEffect(() => {
+    const savedToken = localStorage.getItem('userToken');
+    if (savedToken) {
+        const decodedToken = jwtDecode(savedToken);
+        setUserData(decodedToken);
     }
-  },[])
+  }, []);
 
   function saveUserData(){
     let encodedToken = localStorage.getItem('userToken')
