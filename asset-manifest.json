@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/E-Commerce-Store/static/css/main.dfd5a799.css",
-    "main.js": "/E-Commerce-Store/static/js/main.d8bf8a16.js",
+    "main.js": "/E-Commerce-Store/static/js/main.c6541b03.js",
     "static/media/fa-solid-900.ttf": "/E-Commerce-Store/static/media/fa-solid-900.d75e3fd1eb12e9bd6655.ttf",
     "static/media/slider-image-1.jpeg": "/E-Commerce-Store/static/media/slider-image-1.3c3940ee0f1c3b17ff9a.jpeg",
     "static/media/grocery-banner.png": "/E-Commerce-Store/static/media/grocery-banner.2c56649c9cbe2e19b86f.png",
@@ -13,7 +13,7 @@
     "static/media/fa-brands-400.woff2": "/E-Commerce-Store/static/media/fa-brands-400.878f31251d960bd6266f.woff2",
     "static/media/fa-regular-400.ttf": "/E-Commerce-Store/static/media/fa-regular-400.50701fbb8177c2dde530.ttf",
     "static/media/fa-regular-400.woff2": "/E-Commerce-Store/static/media/fa-regular-400.b041b1fa4fe241b23445.woff2",
-    "static/media/freshcart-logo.svg": "/E-Commerce-Store/static/media/freshcart-logo.53f7a424c3aedc30a0fb46dc2278137c.svg",
+    "static/media/freshcart-logo.svg": "/E-Commerce-Store/static/media/freshcart-logo.af33f2cb2a100f447f3b8c388932e12a.svg",
     "static/media/fa-v4compatibility.ttf": "/E-Commerce-Store/static/media/fa-v4compatibility.c6a0c95b0a95c4553700.ttf",
     "static/media/fa-v4compatibility.woff2": "/E-Commerce-Store/static/media/fa-v4compatibility.1bac2991f3dbfa237aec.woff2",
     "static/media/slick.svg": "/E-Commerce-Store/static/media/slick.2630a3e3eab21c607e21.svg",
@@ -22,10 +22,10 @@
     "static/media/slick.woff": "/E-Commerce-Store/static/media/slick.295183786cd8a1389865.woff",
     "index.html": "/E-Commerce-Store/index.html",
     "main.dfd5a799.css.map": "/E-Commerce-Store/static/css/main.dfd5a799.css.map",
-    "main.d8bf8a16.js.map": "/E-Commerce-Store/static/js/main.d8bf8a16.js.map"
+    "main.c6541b03.js.map": "/E-Commerce-Store/static/js/main.c6541b03.js.map"
   },
   "entrypoints": [
     "static/css/main.dfd5a799.css",
-    "static/js/main.d8bf8a16.js"
+    "static/js/main.c6541b03.js"
   ]
 }
