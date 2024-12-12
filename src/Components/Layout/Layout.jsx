@@ -5,7 +5,7 @@ import Footer from '../Footer/Footer';
 import { Outlet } from 'react-router-dom';
 import { Offline } from "react-detect-offline";
 
-export default function Layout({userData , setUserData ,UserToken ,setUserToken }) {
+export default function Layout({UserToken  }) {
 
 
   return <>

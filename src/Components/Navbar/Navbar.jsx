@@ -14,7 +14,7 @@ export default function Navbar() {
 
   let navigate = useNavigate()
   function logOut(){
-    localStorage.setItem("userToken" , null)
+    localStorage.removeItem("userToken")
     setUserToken(null)
     navigate('/login')
 

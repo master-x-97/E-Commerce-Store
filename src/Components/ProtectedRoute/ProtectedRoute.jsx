@@ -4,12 +4,12 @@ import { Navigate } from 'react-router-dom';
 
 export default function ProtectedRoute(props) {
   // console.log(props.children);
- if(localStorage.getItem('userToken') == null){
-  return <Navigate to={'/login'} />
+ if(localStorage.getItem('userToken') !== null){
+   return props.children
   }
   else
   {
-  return props.children
+    return <Navigate to={'/login'} />
   }
   
 }

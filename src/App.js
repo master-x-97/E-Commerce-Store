@@ -1,6 +1,6 @@
 import './App.css';
 import  { Toaster } from 'react-hot-toast';
-import { Offline, Online } from "react-detect-offline";
+import { Offline } from "react-detect-offline";
 import Layout from './Components/Layout/Layout';
 import Home from './Components/Home/Home';
 import Cart from './Components/Cart/Cart';
@@ -10,7 +10,7 @@ import About from './Components/About/About';
 import Login from './Components/Login/Login';
 import Register from './Components/Register/Register';
 import NotFound from './Components/NotFound/NotFound';
-import { createBrowserRouter, createHashRouter, RouterProvider} from 'react-router-dom';
+import {  createHashRouter, RouterProvider} from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
 import jwtDecode from 'jwt-decode';
 import ProtectedRoute from './Components/ProtectedRoute/ProtectedRoute';
@@ -22,7 +22,7 @@ import Checkout from './Components/checkout/Checkout';
 import Profile from './Components/Profile/Profile';
 import { Provider } from 'react-redux';
 import store from './Redux/store';
-import UserContextProvider, { UserContext } from './Context/UserContext';
+import   { UserContext } from './Context/UserContext';
 
 
 
@@ -56,8 +56,8 @@ function App() {
   let routers = createHashRouter([
     {path:'/',element:<Layout userData={userData} setUserData={setUserData}/>,children:[
       {index:true,element:<Home/> },
-      {path:'products', element:<Products/> },
-      {path:'brands', element:<Brands/> },
+      {path:'products', element:<ProtectedRoute><Products/></ProtectedRoute> },
+      {path:'brands', element:<ProtectedRoute><Brands/></ProtectedRoute> },
       {path:'categories', element:<ProtectedRoute><Categories/></ProtectedRoute> },
       {path:'about', element:<ProtectedRoute><About/></ProtectedRoute>},
       {path:'checkout', element:<ProtectedRoute><Checkout/></ProtectedRoute>},
