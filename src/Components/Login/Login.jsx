@@ -6,13 +6,14 @@ import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { Audio } from 'react-loader-spinner';
 import { UserContext } from '../../Context/UserContext';
+import toast from 'react-hot-toast';
 
 
 
 
 export default function Login() {
   
-  let {setUserToken} = useContext(UserContext)
+  let {setUserToken ,setuserData} = useContext(UserContext)
   let navigate =  useNavigate();
   const [error, seterror] = useState(null)
   const [isloding, setisloding] = useState(false)
@@ -25,6 +26,7 @@ export default function Login() {
     .catch((err)=>{
       setisloding(false);
       seterror(err.response.data.message)
+      toast.error(err.response.data.message)
     })
 
   
@@ -33,8 +35,11 @@ export default function Login() {
       setisloding(false)
       localStorage.setItem('userToken' , data.token)
       setUserToken(data.token)
+      setuserData(data.user )
       navigate('/')
 
+    }else{
+      alert('wrong acc')
     }
   }
   

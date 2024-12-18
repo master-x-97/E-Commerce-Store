@@ -12,8 +12,8 @@ export default function Layout({UserToken  }) {
   <div className=''>
 
     <Navbar UserToken={UserToken}   />
-    <div className="container">
-    <Outlet></Outlet>
+    <div className="container min-vh-100">
+    <Outlet ></Outlet>
 
     </div>
     <div className='bg-danger'>

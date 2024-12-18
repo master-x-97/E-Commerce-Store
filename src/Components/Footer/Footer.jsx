@@ -3,7 +3,7 @@ import React from 'react'
 
 export default function Footer() {
   return  <>
-    <h2>Footer</h2>
+    <h2 className='  mt-5 text-center bg-main  w-100 mb-0 p-1'>Footer</h2>
     </>
   
 }

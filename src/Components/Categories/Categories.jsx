@@ -21,7 +21,7 @@ export default function Categories() {
   return (
     <>
       {loading ? (
-        <div className="loading">
+        <div className="">
           <CircleLoader
             color="#36d7b7"
             cssOverride={{}}

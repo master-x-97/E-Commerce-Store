@@ -7,9 +7,10 @@ import { Link } from 'react-router-dom';
 import {Helmet} from "react-helmet";
 
 
+
 export default function Cart() {
 
-  let  {getLoggedUserCart , removeItem ,updateProductcount ,clearItems} = useContext(CartContext); 
+  let  {getLoggedUserCart , removeCartItem ,updateProductQuantity , clearItems } = useContext(CartContext); 
 
   const [cartDitails, setcartDitails] = useState(null);
 
@@ -17,42 +18,34 @@ export default function Cart() {
   const [numOfCartItems, setnumOfCartItems] = useState(0)
   
   async function getCart(){
-    let response = await getLoggedUserCart();
-    if(response?.data?.status === 'success'){
-      console.log(response);
-      setcartDitails(response.data.data)
-    }
+    let {data} = await getLoggedUserCart();
+if(data?.status === 'success'){
+      console.log(data);
+}
+    setcartDitails(data)
   }
 
 
-  async function deleteItem(productId){
-    let response = await removeItem(productId)
-    setcartDitails(response.data.data)
-    toast('product removed')
-    // console.log(response);
-    // console.log(productId);
+  async function removeItem(id){
+    let {data} = await removeCartItem(id)
+    setcartDitails(data)
+    toast.error('product removed')
   }
-  // async function ClearProduct(){
-  //   let response = await clearItems()
-  //   setcartDitails(response.data.data)
-  //   toast('clear list')
-  // }
-
-
-  async function updateProductQuantity(productId , count){
-    let response = await updateProductcount(productId,count)
-    if(count <= 0){
-      deleteItem(productId)
-
-    }else{
-      setcartDitails(response.data.data)
-      
-      toast('product count updated')
-    }
+  
+  
+  async function updateCount(id , count) {
+    let {data} = await updateProductQuantity(id , count); 
+    setcartDitails(data);
     
-    // console.log(response);
-    // console.log(productId);
   }
+  
+  
+  async function ClearProduct(){
+     let {data} = await clearItems() 
+     setcartDitails(data) 
+     toast('clear list')
+   }
+
 
 
 useEffect(()=>
@@ -65,34 +58,37 @@ useEffect(()=>
                 
         <title>Cart</title>
                            
-    </Helmet> {cartDitails !== null?  
-    <div className='bg-main-light p-4 mt-4'>
-      {/* <button onClick={()=>ClearProduct()} className='btn btn-dark mb-5'>Clear</button> */}
-      <h3>shop cart :</h3>
-      <h6 className='text-main mb-5'>total cart price :{cartDitails.totalCartPrice} EGP</h6>
+    </Helmet> 
+    {cartDitails?
+    <div className='bg-main-light p-4 mt-4 w-75 mx-auto'>
+      <button onClick={()=>ClearProduct()} className='btn btn-dark mb-5'>Clear</button>
+      <h3>shopping cart :</h3>
+      <h6 className='text-main mb-5 fw-bolder'>Cart items : {cartDitails.numOfCartItems == 0? " you dont have any items" :cartDitails.numOfCartItems}</h6>
+
+      {/* <h6 className='text-main mb-5 fw-bolder'>total cart price :{cartDitails?.data?.totalCartPrice} EGP</h6> */}
   
       
       
-      {cartDitails?.products?.map((product)=><div key={product.product._id} className="row border-bottom py-2 align-items-center">
+      {cartDitails.data?.products?.map((product)=><div key={product.product.id} className="row border-bottom py-2 align-items-center">
         <div className='col-md-1'>
           <img className='w-100 my-2' src={product.product.imageCover} alt="" />
         </div>
         <div className='col-md-11 d-flex justify-content-between'>
           <div>
   
-          <h6 className='text-main' >{product.product.title}</h6>
+          <h6 className='text-main' >{product.product.title.split(' ').slice(0,3).join(' ')}</h6>
           <h6 className='text-main'>price : {product.price}</h6>
-          <button onClick={()=>deleteItem(product.product._id)} className='btn m-0 p-0'><i className='fa-regular fa-trash-can text-danger'></i> Remove</button>
+          <button onClick={()=>removeItem(product.product.  id)} className='btn m-0 p-0'><i className='fa-regular fa-trash-can text-danger'></i> Remove</button>
           </div>
           <div>
-            <button onClick={()=>updateProductQuantity(product.product._id,product.count+1)} className='btn border-main btn-ms'>+</button>
+            <button onClick={()=>updateCount(product.product.id,product.count+1)} className='btn border-main btn-ms'>+</button>
             <span className='mx-2'>{product.count}</span>
-            <button onClick={()=>updateProductQuantity(product.product._id,product.count-1)} className='btn  border-main btn-ms'>-</button>
+            <button onClick={()=>updateCount(product.product.id,product.count-1)} className='btn  border-main btn-ms'>-</button>
           </div>
   
         </div>
-  
       </div>)}
+        <h6 className='text-main mt-5 fw-bolder'>total cart price : {cartDitails.numOfCartItems == 0? " your Cart is clear" :cartDitails?.data?.totalCartPrice+' EGP'} </h6>
   
       <button className='btn bg-main my-2'>
         <Link  className='text-white' to={'/checkout'}>
@@ -100,7 +96,7 @@ useEffect(()=>
         </Link>
       </button>
     </div>
-    : <div className='text-center mt-4'> <i className='fas fa-spin fa-3x fa-spinner text-main '></i></div>}
+    : <div className='text-center mt-4  '> <i className='fas fa-spin fa-3x fa-spinner text-main '></i></div>}
     </>
   
 }

@@ -63,7 +63,8 @@ export default function Navbar() {
           </li>
           </>:''}
 
-        </ul>
+        </ul> 
+
 
 
         <div className="collapse navbar-collapse" id="collapsibleNavId">
@@ -112,6 +113,7 @@ export default function Navbar() {
               </>
             )}
           </ul>
+        
         </div>
       </div>
     </nav>
